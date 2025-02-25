@@ -18,6 +18,11 @@ public class HelloController {
         return "Chef Integration.";
     }
 
+    @GetMapping("/hi")
+    public String sayHi() {
+        return "Just Saying Hi.";
+    }
+
     @GetMapping("/desc")
     public String describe() {
         return "This is a sample project to test GitHub Actions.";
