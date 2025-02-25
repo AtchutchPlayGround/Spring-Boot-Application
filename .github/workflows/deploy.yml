@@ -22,9 +22,20 @@ jobs:
       - name: Deploy to EC2
         run: |
           ssh -o StrictHostKeyChecking=no -i private_key.pem ubuntu@${{ secrets.EC2_PUBLIC_IP }} << 'EOF'
-            cd ~/Spring-Boot-Application/Spring-Boot-Application  # Change if repo is elsewhere
+            cd ~/Spring-Boot-Application  # Change if repo is elsewhere
             git pull origin main  # Fetch latest changes
             mvn clean package -DskipTests  # Build the JAR
-            sudo systemctl daemon-reload  # Reload systemd config
-            sudo systemctl restart springboot-app  # Restart the service
+            
+            # Ensure Chef Workstation is installed
+            if ! command -v chef &> /dev/null; then
+              echo "Chef is not installed. Installing Chef Workstation..."
+              curl -L https://omnitruck.chef.io/install.sh | sudo bash
+            fi
+            
+            # Run Chef Client in Local Mode with cookbooks path
+            # sudo chef-client --local-mode --config-option cookbook_path=/home/ubuntu/Spring-Boot-Application/cookbooks --override-runlist 'recipe[spring-boot-app]'
+            sudo chef-client --local-mode --config-option cookbook_path=/home/ubuntu/chef-repo/cookbooks --override-runlist 'recipe[spring-boot-app]'            
+            # Restart the application
+            sudo systemctl daemon-reload
+            sudo systemctl restart springboot-app
           EOF
