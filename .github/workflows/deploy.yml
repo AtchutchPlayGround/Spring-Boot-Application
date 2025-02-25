@@ -22,7 +22,7 @@ jobs:
       - name: Deploy to EC2
         run: |
           ssh -o StrictHostKeyChecking=no -i private_key.pem ubuntu@${{ secrets.EC2_PUBLIC_IP }} << 'EOF'
-            cd ~/Spring-Boot-Application  # Change if repo is elsewhere
+            cd ~/Spring-Boot-Application/Spring-Boot-Application  # Change if repo is elsewhere
             git pull origin main  # Fetch latest changes
             mvn clean package -DskipTests  # Build the JAR
             sudo systemctl daemon-reload  # Reload systemd config
