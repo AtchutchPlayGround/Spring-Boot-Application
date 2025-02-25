@@ -13,6 +13,11 @@ public class HelloController {
         return "Project to test GitHub Actions with Chef Workstation Integration.";
     }
 
+    @GetMapping("/tst")
+    public String sayHello() {
+        return "Chef Integration.";
+    }
+
     @GetMapping("/desc")
     public String describe() {
         return "This is a sample project to test GitHub Actions.";
