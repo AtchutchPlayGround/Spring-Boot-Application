@@ -25,5 +25,6 @@ jobs:
             cd ~/Spring-Boot-Application  # Change if repo is elsewhere
             git pull origin main  # Fetch latest changes
             mvn clean package -DskipTests  # Build the JAR
+            sudo systemctl daemon-reload  # Reload systemd config
             sudo systemctl restart springboot-app  # Restart the service
           EOF
