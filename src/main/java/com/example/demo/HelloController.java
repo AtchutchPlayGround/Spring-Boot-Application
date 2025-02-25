@@ -14,7 +14,7 @@ public class HelloController {
     }
 
     @GetMapping("/tst")
-    public String sayHello() {
+    public String sayTst() {
         return "Chef Integration.";
     }
 
