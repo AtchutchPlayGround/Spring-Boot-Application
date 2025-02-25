@@ -9,6 +9,6 @@ public class HelloControllerTest {
     public void testSayHello() {
         HelloController controller = new HelloController();
         String response = controller.sayHello();
-        assertThat(response).isEqualTo("Project to test GitHub Actions.");
+        assertThat(response).isEqualTo("Project to test GitHub Actions with Chef Workstation Integration.");
     }
 }
