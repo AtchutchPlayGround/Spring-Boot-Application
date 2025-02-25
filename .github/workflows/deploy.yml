@@ -1,9 +1,10 @@
 name: Deploy Spring Boot App to EC2
 
 on:
-  push:
-    branches:
-      - main  # Change to 'master' if needed
+  workflow_run:
+    workflows: ["Spring Boot CI"]  # This must match the "name" field in ci.yml
+    types:
+      - completed
 
 jobs:
   deploy:
