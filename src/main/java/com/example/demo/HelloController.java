@@ -10,7 +10,7 @@ public class HelloController {
 
     @GetMapping("/hello")
     public String sayHello() {
-        return "Project to test GitHub Actions.";
+        return "Project to test GitHub Actions with Chef Workstation Integration.";
     }
 
     @GetMapping("/desc")
