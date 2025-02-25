@@ -1,0 +1,28 @@
+name: Deploy Spring Boot App to EC2
+
+on:
+  push:
+    branches:
+      - main  # Change to 'master' if needed
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up SSH
+        run: |
+          echo "${{ secrets.EC2_SSH_KEY }}" > private_key.pem
+          chmod 600 private_key.pem
+
+      - name: Deploy to EC2
+        run: |
+          ssh -o StrictHostKeyChecking=no -i private_key.pem ubuntu@${{ secrets.EC2_PUBLIC_IP }} << 'EOF'
+            cd ~/Spring-Boot-Application  # Change if repo is elsewhere
+            git pull origin main  # Fetch latest changes
+            mvn clean package -DskipTests  # Build the JAR
+            sudo systemctl restart springboot-app  # Restart the service
+          EOF
