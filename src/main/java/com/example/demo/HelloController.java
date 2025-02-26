@@ -23,6 +23,11 @@ public class HelloController {
         return "Just Saying Hi.";
     }
 
+    @GetMapping("/chefTst")
+    public String chefTesting() {
+        return "Project run through GitHub Workflows and Chef infra collab.";
+    }
+
     @GetMapping("/chef")
     public String sayChef() {
         return "Integrated Chef.";
